@@ -1,0 +1,5 @@
+.DS_Modules
+.cache
+node_modules
+dist
+build
