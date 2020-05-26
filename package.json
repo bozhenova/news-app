@@ -1,0 +1,32 @@
+{
+  "name": "news-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bozhenova/news-app.git"
+  },
+  "keywords": [
+    "js",
+    "javascript"
+  ],
+  "author": "bozhenova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bozhenova/news-app/issues"
+  },
+  "homepage": "https://github.com/bozhenova/news-app#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.9.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "parcel-bundler": "1.12.4"
+  }
+}

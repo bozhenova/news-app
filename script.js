@@ -1,4 +1,4 @@
-import { NewsApp } from './NewsApp';
+import { NewsApp } from './js/NewsApp';
 
 const newsApp = new NewsApp();
 

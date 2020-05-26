@@ -1,8 +1,9 @@
-import { CustomHTTP } from './CustomHTTP';
+import { Loader } from './Loader';
 
 const apiKey = `e3bc560ad2544f679b60dcaa0621cb24`;
-const apiURL = `https://cors-anywhere.herokuapp.com/http://newsapi.org/v2`;
-const http = new CustomHTTP();
+const proxy = `https://cors-anywhere.herokuapp.com/`;
+const URL = `${proxy}http://newsapi.org/v2`;
+const loader = new Loader();
 
 export class NewsApp {
   constructor() {
@@ -17,30 +18,27 @@ export class NewsApp {
 
   loadNews() {
     const countrySelect = this.form.querySelector('#country');
+    const categorySelect = this.form.querySelector('#category');
     const searchInput = this.form.querySelector('#autocomplete-input');
     const country = countrySelect.value;
+    const category = categorySelect.value;
     const searchText = searchInput.value;
 
     this.showLoader();
     if (!searchText) {
-      this.newsService.topHeadlines(country, this.onGetResponse);
+      this.newsService.topHeadlines(country, category, this.onGetResponse);
     } else {
       this.newsService.everything(searchText, this.onGetResponse);
     }
   }
 
-  onGetResponse(err, res) {
+  onGetResponse(response) {
     this.removeLoader();
-    if (err) {
-      this.showAlert(err, `error-msg`);
-      return;
-    }
-    if (!res.articles.length) {
+    if (!response.articles.length) {
       this.showAlert('No matches were found', `error-msg`);
       return;
     }
-
-    this.renderNews(res.articles);
+    this.renderNews(response.articles);
   }
 
   renderNews(news) {
@@ -106,16 +104,15 @@ export class NewsApp {
 
 NewsApp.prototype.newsService = (function () {
   return {
-    topHeadlines(country, cb) {
-      http.get(
-        `${apiURL}/top-headlines?country=${country}&category=business&apiKey=${apiKey}`,
+    topHeadlines(country, category, cb) {
+      loader.get(
+        `${URL}/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`,
         cb
       );
     },
 
-    // TODO: add category
     everything(query, cb) {
-      http.get(`${apiURL}/everything?q=${query}&apiKey=${apiKey}`, cb);
+      loader.get(`${URL}/everything?q=${query}&apiKey=${apiKey}`, cb);
     }
   };
 })();
